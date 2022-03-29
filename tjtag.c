@@ -1,4 +1,3 @@
-// vim: ts=3:sw=3:expandtab:sts=3
 //
 // tjtag.c - EJTAG Debrick Utility v3.0.1 - Tornado MOD
 // Copyright (C) 2004  HairyDairyMaid (a.k.a. Lightbulb)
@@ -2635,6 +2634,7 @@ void sflash_write_word(unsigned int addr, unsigned int data)
 {
     unsigned int data_lo, data_hi;
 
+    printf("debug dma ");
 
     if (USE_DMA)
     {
@@ -2653,6 +2653,7 @@ void sflash_write_word(unsigned int addr, unsigned int data)
 
     }
 
+    printf("debug CMD_TYPE_SPI ");
     if (cmd_type == CMD_TYPE_SPI)
     {
         spiflash_write_word(addr, data);
@@ -2662,7 +2663,8 @@ void sflash_write_word(unsigned int addr, unsigned int data)
     {
 
         if (bypass)
-        {
+        {   
+            printf("debug bypass ");
             if (proc_id == 0x00000001)
             {
                 ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00A000A0);
@@ -2686,7 +2688,7 @@ void sflash_write_word(unsigned int addr, unsigned int data)
             }
         }
         else
-
+            printf("debug speedtouch ");
             if (speedtouch || proc_id == 0x00000001)
             {
                 // Speedtouch uses a different flash address pattern.
@@ -2731,9 +2733,10 @@ void sflash_write_word(unsigned int addr, unsigned int data)
 
 
     }
-
+    
     if (cmd_type == CMD_TYPE_SST)
-    {
+    {   
+        printf("debug debug2 ");
         // Handle Half Of Word
         ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
         ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
@@ -2756,7 +2759,7 @@ void sflash_write_word(unsigned int addr, unsigned int data)
     if ((cmd_type == CMD_TYPE_BSC) || (cmd_type == CMD_TYPE_SCS))
     {
 
-
+        printf("debug debug3 ");
         // Handle Half Of Word
         ejtag_write_h(addr, 0x00500050);     // Clear Status Command
         ejtag_write_h(addr, 0x00400040);     // Write Command
