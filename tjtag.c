@@ -2688,9 +2688,10 @@ void sflash_write_word(unsigned int addr, unsigned int data)
             }
         }
         else
-            printf("debug speedtouch ");
+            
             if (speedtouch || proc_id == 0x00000001)
             {
+                printf("debug speedtouch\n\n ");
                 // Speedtouch uses a different flash address pattern.
                 // Handle Half Of Word
                 ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00AA00AA);
@@ -2713,6 +2714,7 @@ void sflash_write_word(unsigned int addr, unsigned int data)
 
             else
             {
+                printf("debug no speedtouch\n\n ");
                 ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
                 ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
                 ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00A000A0);
@@ -2736,7 +2738,7 @@ void sflash_write_word(unsigned int addr, unsigned int data)
     
     if (cmd_type == CMD_TYPE_SST)
     {   
-        printf("debug debug2 ");
+        printf("debug debug2\n\n ");
         // Handle Half Of Word
         ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
         ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
