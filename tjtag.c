@@ -209,7 +209,8 @@ flash_area_type  flash_area_list[] =
     { size2MB,    "CFE",         0x1FC00000,  0x40000 },
     { size4MB,    "CFE",         0x1FC00000,  0x40000 },//256Kb
     { size8MB,    "CFE",         0x1C000000,  0x40000 },
-    { size16MB,   "CFE",         0x1F000000,  0x40000 }, //tornado - for alice
+    //{ size16MB,   "CFE",         0x1F000000,  0x40000 }, //tornado - for alice
+    { size16MB,   "CFE",      0x1E000000,  0x020000  }, //AGPF
 
     { size8MB,    "AR-CFE",         0xA8000000,  0x40000 },
     { size16MB,   "AR-CFE",         0xA8000000,  0x40000 },
@@ -220,6 +221,7 @@ flash_area_type  flash_area_list[] =
     { size4MB,    "CFE128",      0x1FC00000,  0x20000 },//128Kb
     { size8MB,    "CFE128",      0x1C000000,  0x20000 },
     { size16MB,   "CFE128",      0x1C000000,  0x20000 },
+    
 
     { size1MB,    "CF1",         0x1FC00000,  0x2000 },
     { size2MB,    "CF1",         0x1FC00000,  0x2000 },
@@ -239,7 +241,8 @@ flash_area_type  flash_area_list[] =
     { size2MB,    "NVRAM",       0x1FDF0000,  0x10000 },
     { size4MB,    "NVRAM",       0x1FFF0000,  0x10000 },//64kb
     { size8MB,    "NVRAM",       0x1C7E0000,  0x20000 },
-    { size16MB,   "NVRAM",       0x1C7E0000,  0x20000 },
+    //{ size16MB,   "NVRAM",       0x1C7E0000,  0x20000 },
+    { size16MB,   "NVRAM",       0x1EFF0000,  0x010000 }, //AGPF
 
     { size8MB,    "AR-NVRAM",    0xA87E0000,  0x20000 },
     { size16MB,   "AR-NVRAM",    0xA87E0000,  0x20000 },
@@ -252,8 +255,10 @@ flash_area_type  flash_area_list[] =
     { size2MB,    "WHOLEFLASH",  0x1FC00000,  0x200000 },
     { size4MB,    "WHOLEFLASH",  0x1FC00000,  0x400000 },//4Mb
     { size8MB,    "WHOLEFLASH",  0x1C000000,  0x800000 },
-//    { size16MB,   "WHOLEFLASH",  0x1C000000,  0x1000000 },
-    { size16MB,   "WHOLEFLASH",  0x1F000000,  0x1000000 },
+    //{ size16MB,   "WHOLEFLASH",  0x1C000000,  0x1000000 },
+    //{ size16MB,   "WHOLEFLASH",  0x1F000000,  0x1000000 },
+    { size16MB,   "WHOLEFLASH",   0x1E000000, 0x1000000 },//AGPF
+
     { size8MB,    "AR-WHOLEFLASH",  0xA8000000,  0x800000 },
     { size16MB,   "AR-WHOLEFLASH",  0xA8000000,  0x1000000 },
 
@@ -502,6 +507,7 @@ void lpt_openport(void)
       printf("can't open /dev/gpiomem \n");
       exit(-1);
    }
+
    // Allocate MAP block
    if ((gpio_mem = malloc(BLOCK_SIZE + (PAGE_SIZE - 1))) == NULL) {
       printf("allocation error\n");
