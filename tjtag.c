@@ -890,10 +890,14 @@ begin_ejtag_dma_read_h:
     }
     // Handle the bigendian / littleendian
 
-    if ( addr & 0x2 )
-        data = (data>>16)&0xffff;
-    else
-        data = (data&0x0000ffff);
+    // if ( addr & 0x2 )
+    //     data = (data>>16)&0xffff;
+    // else
+    //     data = (data&0x0000ffff);
+
+    // Handle the bigendian/littleendian
+        if ( addr & 0x2 )  data = (data & 0x0000ffff);
+        else               data = ((data>>16) & 0xffff);
 
     return(data);
 
