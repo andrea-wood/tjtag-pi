@@ -243,7 +243,7 @@ flash_area_type  flash_area_list[] =
     { size4MB,    "NVRAM",       0x1FFF0000,  0x10000 },//64kb
     { size8MB,    "NVRAM",       0x1C7E0000,  0x20000 },
     //{ size16MB,   "NVRAM",       0x1C7E0000,  0x20000 },
-    { size16MB,   "NVRAM",       0x1EFF0000,  0x010000 }, //AGPF
+    { size16MB,   "NVRAM",      0x1FFA0000,   0x01FF6C  }, //AGPF
 
     { size8MB,    "AR-NVRAM",    0xA87E0000,  0x20000 },
     { size16MB,   "AR-NVRAM",    0xA87E0000,  0x20000 },
