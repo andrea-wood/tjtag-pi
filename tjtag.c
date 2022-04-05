@@ -233,7 +233,8 @@ flash_area_type  flash_area_list[] =
     { size2MB,    "KERNEL",      0x1FC40000,  0x1B0000 },
     { size4MB,    "KERNEL",      0x1FC40000,  0x3B0000 },//3776Kb
     { size8MB,    "KERNEL",      0x1C040000,  0x7A0000 },
-    { size16MB,   "KERNEL",      0x1C040000,  0x7A0000 },
+    //{ size16MB,   "KERNEL",      0x1C040000,  0x7A0000 },
+    { size16MB,   "KERNEL",      0x1E020000,  0x79FF6C },//AGPF
     { size8MB,    "AR-KERNEL",   0xA8040000,  0x7A0000 },
     { size16MB,   "AR-KERNEL",   0xA8040000,  0x7A0000 },
 
