@@ -491,11 +491,17 @@ void lpt_openport(void)
    char *gpio_mem, *gpio_map;
 
    /* open /dev/mem */
-   if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
-      printf("can't open /dev/mem \n");
+    // switch to /dev/gpiomem
+    //    if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
+    //       printf("can't open /dev/mem \n");
+    //       exit(-1);
+    //    }
+
+   /* open /dev/gpiomem */
+   if ((mem_fd = open("/dev/gpiomem", O_RDWR|O_SYNC) ) < 0) {
+      printf("can't open /dev/gpiomem \n");
       exit(-1);
    }
-
    // Allocate MAP block
    if ((gpio_mem = malloc(BLOCK_SIZE + (PAGE_SIZE - 1))) == NULL) {
       printf("allocation error\n");
