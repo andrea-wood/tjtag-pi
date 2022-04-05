@@ -209,8 +209,8 @@ flash_area_type  flash_area_list[] =
     { size2MB,    "CFE",         0x1FC00000,  0x40000 },
     { size4MB,    "CFE",         0x1FC00000,  0x40000 },//256Kb
     { size8MB,    "CFE",         0x1C000000,  0x40000 },
-    //{ size16MB,   "CFE",         0x1F000000,  0x40000 }, //tornado - for alice
-    { size16MB,   "CFE",      0x1E000000,  0x020000  }, //AGPF
+    { size16MB,   "CFE",         0x1F000000,  0x40000 }, //tornado - for alice
+    { size16MB,   "CFE_AGPF",    0x1E000000,  0x020000  }, //AGPF
 
     { size8MB,    "AR-CFE",         0xA8000000,  0x40000 },
     { size16MB,   "AR-CFE",         0xA8000000,  0x40000 },
@@ -233,8 +233,8 @@ flash_area_type  flash_area_list[] =
     { size2MB,    "KERNEL",      0x1FC40000,  0x1B0000 },
     { size4MB,    "KERNEL",      0x1FC40000,  0x3B0000 },//3776Kb
     { size8MB,    "KERNEL",      0x1C040000,  0x7A0000 },
-    //{ size16MB,   "KERNEL",      0x1C040000,  0x7A0000 },
-    { size16MB,   "KERNEL",      0x1E020000,  0x79FF6C },//AGPF
+    { size16MB,   "KERNEL",      0x1C040000,  0x7A0000 },
+    { size16MB,   "KERNEL_AGPF", 0x1E020000,  0x79FF6C },//AGPF
     { size8MB,    "AR-KERNEL",   0xA8040000,  0x7A0000 },
     { size16MB,   "AR-KERNEL",   0xA8040000,  0x7A0000 },
 
@@ -242,8 +242,11 @@ flash_area_type  flash_area_list[] =
     { size2MB,    "NVRAM",       0x1FDF0000,  0x10000 },
     { size4MB,    "NVRAM",       0x1FFF0000,  0x10000 },//64kb
     { size8MB,    "NVRAM",       0x1C7E0000,  0x20000 },
-    //{ size16MB,   "NVRAM",       0x1C7E0000,  0x20000 },
-    { size16MB,   "NVRAM",      0x1FFA0000,   0x01FF6C  }, //AGPF
+    { size16MB,   "NVRAM",       0x1C7E0000,  0x20000 },
+    { size16MB,   "NVRAM_AGPF",  0x1EFF0000,  0x010000  }, //AGPF
+    { size16MB,   "PSI_NVRAM_AGPF",  0x1FFA0000,  0x01FF6C  }, //AGPF
+    { size16MB,   "SCRATCH_PAD_AGPF",  0x1FFC0000, 0x01FF6C },//AGPF
+    { size16MB,   "PSI_AGPF", 0x1FFE0000, 0x00FF6C },//AGPF
 
     { size8MB,    "AR-NVRAM",    0xA87E0000,  0x20000 },
     { size16MB,   "AR-NVRAM",    0xA87E0000,  0x20000 },
@@ -258,7 +261,7 @@ flash_area_type  flash_area_list[] =
     { size8MB,    "WHOLEFLASH",  0x1C000000,  0x800000 },
     //{ size16MB,   "WHOLEFLASH",  0x1C000000,  0x1000000 },
     //{ size16MB,   "WHOLEFLASH",  0x1F000000,  0x1000000 },
-    { size16MB,   "WHOLEFLASH",   0x1E000000, 0x1000000 },//AGPF
+    { size16MB,   "WHOLEFLASH_AGPF", 0x1E000000, 0x1000000 },//AGPF
 
     { size8MB,    "AR-WHOLEFLASH",  0xA8000000,  0x800000 },
     { size16MB,   "AR-WHOLEFLASH",  0xA8000000,  0x1000000 },
@@ -3135,6 +3138,24 @@ int main(int argc, char** argv)
         run_option = 5;
         strcpy(AREA_NAME, &choice[6]);
     }
+
+/* Extras for AGPF */
+    if (strcasecmp(choice,"-backup:cfe_agpf")==0)    { run_option = 1; strcpy(AREA_NAME, "CFE_AGPF");                }
+    if (strcasecmp(choice,"-backup:nvram_agpf")==0)  { run_option = 1; strcpy(AREA_NAME, "NVRAM_AGPF");              }
+    if (strcasecmp(choice,"-backup:kernel_agpf")==0) { run_option = 1; strcpy(AREA_NAME, "KERNEL_AGPF");             }
+
+    if (strcasecmp(choice,"-erase:cfe_agpf")==0)    { run_option = 2; strcpy(AREA_NAME, "CFE_AGPF");                }
+    if (strcasecmp(choice,"-erase:nvram_agpf")==0)  { run_option = 2; strcpy(AREA_NAME, "NVRAM_AGPF");              }
+    if (strcasecmp(choice,"-erase:kernel_agpf")==0) { run_option = 2; strcpy(AREA_NAME, "KERNEL_AGPF");             }
+
+    if (strcasecmp(choice,"-flash:cfe_agpf")==0)    { run_option = 3; strcpy(AREA_NAME, "CFE_AGPF");                }
+    if (strcasecmp(choice,"-flash:nvram_agpf")==0)  { run_option = 3; strcpy(AREA_NAME, "NVRAM_AGPF");              }
+    if (strcasecmp(choice,"-flash:kernel_agpf")==0) { run_option = 3; strcpy(AREA_NAME, "KERNEL_AGPF");             }
+    if (strcasecmp(choice,"-flash:wholeflash_agpf")==0) { run_option = 3; strcpy(AREA_NAME, "WHOLEFLASH_AGPF");     }
+    if (strcasecmp(choice,"-flash:psi_nvram_agpf")==0)  { run_option = 3; strcpy(AREA_NAME, "PSI_NVRAM_AGPF");      }
+    if (strcasecmp(choice,"-flash:scratchpad_agpf")==0) { run_option = 3; strcpy(AREA_NAME, "SCRATCH_PAD_AGPF");    }
+    if (strcasecmp(choice,"-flash:psi_agpf")==0)    { run_option = 3; strcpy(AREA_NAME, "PSI_AGPF");                }
+/* end AGPF */
 
 /* Extras for AR7 */
     if (strcasecmp(choice,"-backup:mtd2")==0)        { run_option = 1;  strcpy(AREA_NAME, "MTD2");       }
