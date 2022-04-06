@@ -2507,21 +2507,24 @@ void sflash_erase_area(unsigned int start, unsigned int length)
 
     reg_start = start;
     reg_end   = reg_start + length;
-
+	printf("reg_start: %d\n\n", reg_start);
+	printf("length: %d\n\n", length);
+	printf("reg_end: %d\n\n", reg_end);
     tot_blocks = 0;
 
     for (cur_block = 1;  cur_block <= block_total;  cur_block++)
     {
         block_addr = blocks[cur_block];
+	    printf("block_addr: %d\n\n", block_addr);
         if ((block_addr >= reg_start) && (block_addr < reg_end))  tot_blocks++;
     }
 
     printf("Total Blocks to Erase: %d\n\n", tot_blocks);
-
+	printf("block_total: %d\n\n", block_total);
     for (cur_block = 1;  cur_block <= block_total;  cur_block++)
     {
         block_addr = blocks[cur_block];
-
+	printf("erasing block_addr: %d\n\n", block_addr);
         if ((block_addr >= reg_start) && (block_addr < reg_end))
         {
 
