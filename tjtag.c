@@ -3147,6 +3147,7 @@ int main(int argc, char** argv)
     if (strcasecmp(choice,"-erase:cfe_agpf")==0)    { run_option = 2; strcpy(AREA_NAME, "CFE_AGPF");                }
     if (strcasecmp(choice,"-erase:nvram_agpf")==0)  { run_option = 2; strcpy(AREA_NAME, "NVRAM_AGPF");              }
     if (strcasecmp(choice,"-erase:kernel_agpf")==0) { run_option = 2; strcpy(AREA_NAME, "KERNEL_AGPF");             }
+	if (strcasecmp(choice,"-erase:wholeflash_agpf")==0) { run_option = 2; strcpy(AREA_NAME, "WHOLEFLASH_AGPF");             }
 
     if (strcasecmp(choice,"-flash:cfe_agpf")==0)    { run_option = 3; strcpy(AREA_NAME, "CFE_AGPF");                }
     if (strcasecmp(choice,"-flash:nvram_agpf")==0)  { run_option = 3; strcpy(AREA_NAME, "NVRAM_AGPF");              }
